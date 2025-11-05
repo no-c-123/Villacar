@@ -1,16 +1,21 @@
 {
-  "name": "latest",
+  "name": "villacar",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.16",
-    "astro": "^5.15.1",
-    "tailwindcss": "^4.1.16"
+    "astro": "^3.5.3"
+  },
+  "devDependencies": {
+    "@astrojs/tailwind": "^5.1.5",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.18"
   }
 }
