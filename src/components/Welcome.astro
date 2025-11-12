@@ -1,103 +1,191 @@
 ---
-interface Car {
-  id: string;
-  name: string;
-  price: number;
-  year: number;
-  image: string;
-}
+import { getFeaturedCars, type Car } from '../data/cars';
 
-const featuredCars: Car[] = [
-  {
-    id: "1",
-    name: "Tesla Model S",
-    price: 89999,
-    year: 2024,
-    image: "/images/cars/tesla-model-s.jpg"
-  },
-  {
-    id: "2",
-    name: "BMW M5",
-    price: 103500,
-    year: 2024,
-    image: "/images/cars/bmw-m5.jpg"
-  },
-  {
-    id: "3",
-    name: "Porsche 911",
-    price: 116950,
-    year: 2024,
-    image: "/images/cars/porsche-911.jpg"
-  }
-];
+const featuredCars = getFeaturedCars();
 ---
 
-<main class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900">
+<main class="bg-gradient-to-br from-gray-900 to-blue-900">
   <!-- Hero Section -->
-  <div class="container mx-auto px-4 pt-20 pb-12">
-    <div class="text-center max-w-4xl mx-auto">
-      <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
-        Welcome to <span class="text-blue-400">VillaCar</span>
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Animated Background -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-900/50 to-purple-900/50"></div>
+      <div class="absolute top-0 left-0 w-full h-full">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+      </div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-4 py-20 text-center">
+      <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
+        Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">VillaCar</span>
       </h1>
       
-      <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-        Discover luxury and performance vehicles curated just for you
+      <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto">
+        Discover luxury and performance vehicles curated with excellence. Your dream car awaits.
       </p>
 
-      <div class="flex flex-wrap justify-center gap-6">
+      <div class="flex flex-wrap justify-center gap-6 mb-16">
         <a 
           href="/inventory" 
-          class="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 hover:scale-105"
+          class="group inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/50"
         >
-          Browse Inventory
-          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          View Inventory
+          <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </a>
         
         <a 
-          href="#contact" 
-          class="inline-flex items-center px-8 py-4 border-2 border-white/30 text-white rounded-lg hover:bg-white/10 transition-all duration-300 hover:scale-105"
+          href="/contact" 
+          class="group inline-flex items-center px-8 py-4 border-2 border-white/30 text-white rounded-lg hover:bg-white/10 hover:border-white transition-all duration-300 hover:scale-105"
         >
-          Contact Us
+          Schedule Test Drive
+          <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-blue-400 mb-2">500+</div>
+          <div class="text-gray-300 text-sm">Cars Available</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-blue-400 mb-2">15+</div>
+          <div class="text-gray-300 text-sm">Years Experience</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-blue-400 mb-2">10K+</div>
+          <div class="text-gray-300 text-sm">Happy Customers</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-blue-400 mb-2">24/7</div>
+          <div class="text-gray-300 text-sm">Support</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Featured Cars Section -->
+  <section class="py-20 bg-gray-900">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Featured <span class="text-blue-400">Vehicles</span></h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">Handpicked premium vehicles that combine luxury, performance, and style</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {featuredCars.map((car) => (
+          <a href={`/cars/${car.id}`} class="group">
+            <div class="bg-white/5 rounded-xl overflow-hidden backdrop-blur-sm border border-white/10 transition-all duration-300 hover:border-blue-400/50 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20">
+              <div class="relative overflow-hidden">
+                <img 
+                  src={car.images[0]} 
+                  alt={`${car.make} ${car.model}`}
+                  class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110"
+                  onerror="this.src='/images/placeholder-car.jpg'"
+                />
+                <div class="absolute top-4 right-4">
+                  <span class="px-3 py-1 bg-blue-600 text-white text-sm rounded-full">
+                    {car.condition}
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-white mb-2">{car.year} {car.make} {car.model}</h3>
+                <div class="flex items-center text-gray-400 mb-4 text-sm space-x-4">
+                  <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    {car.fuelType}
+                  </span>
+                  <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {car.mileage.toLocaleString()} mi
+                  </span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-3xl font-bold text-blue-400">
+                    ${car.price.toLocaleString()}
+                  </span>
+                  <span class="text-blue-400 group-hover:translate-x-2 transition-transform">
+                    View Details →
+                  </span>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <a 
+          href="/inventory" 
+          class="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 hover:scale-105"
+        >
+          View All Inventory
           <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </a>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Featured Cars Section -->
-  <div class="container mx-auto px-4 py-16">
-    <h2 class="text-3xl font-bold text-white text-center mb-12">Featured Vehicles</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {featuredCars.map((car) => (
-        <div class="bg-white/10 rounded-lg overflow-hidden backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-300 hover:scale-105">
-          <img 
-            src={car.image} 
-            alt={car.name}
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-white">{car.name}</h3>
-            <p class="text-gray-300 mt-2">{car.year}</p>
-            <div class="flex justify-between items-center mt-4">
-              <span class="text-2xl font-bold text-blue-400">
-                ${car.price.toLocaleString()}
-              </span>
-              <a 
-                href={`/inventory/${car.id}`}
-                class="px-4 py-2 bg-blue-600/20 text-blue-400 rounded-lg hover:bg-blue-600/30 transition-colors"
-              >
-                View Details
-              </a>
-            </div>
+  <!-- Why Choose Us Section -->
+  <section class="py-20 bg-gradient-to-br from-blue-900 to-gray-900">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Why Choose <span class="text-blue-400">VillaCar</span></h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">Experience the difference of working with a trusted luxury auto dealer</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 transition-all duration-300 hover:border-blue-400/50 hover:scale-105">
+          <div class="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
           </div>
+          <h3 class="text-2xl font-bold text-white mb-4">Certified Quality</h3>
+          <p class="text-gray-400">Every vehicle undergoes rigorous inspection to ensure the highest quality standards.</p>
         </div>
-      ))}
+
+        <div class="bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 transition-all duration-300 hover:border-blue-400/50 hover:scale-105">
+          <div class="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-4">Best Financing</h3>
+          <p class="text-gray-400">Flexible financing options with competitive rates tailored to your budget.</p>
+        </div>
+
+        <div class="bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 transition-all duration-300 hover:border-blue-400/50 hover:scale-105">
+          <div class="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-4">Expert Support</h3>
+          <p class="text-gray-400">Our knowledgeable team is here to guide you through every step of your purchase.</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </main>
 
 
