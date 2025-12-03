@@ -6,20 +6,20 @@ import { cars, type Car } from '../data/cars';
 ---
 
 <Layout 
-  title="Inventory - VillaCar | Browse Our Premium Vehicle Collection"
-  description="Explore our complete inventory of luxury and performance vehicles. Find your perfect car from brands like Tesla, BMW, Porsche, Mercedes-Benz, Audi, and more."
+  title="Inventory - Villacar Autos LLC. | Browse Our Vehicle Selection"
+  description="Explore our inventory of quality vehicles from trusted brands like Nissan, Dodge, GMC, Toyota, and more. Find the perfect car for your needs and budget."
 >
   <Navbar />
   
   <main class="min-h-screen bg-gray-50">
     <!-- Page Header -->
-    <section class="bg-gradient-to-br from-gray-900 to-blue-900 py-20">
+    <section class="bg-gray-900 py-16">
       <div class="container mx-auto px-4">
-        <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 text-center">
-          Our <span class="text-blue-400">Inventory</span>
+        <h1 class="text-5xl font-bold text-white mb-4 text-center">
+          Our Inventory
         </h1>
         <p class="text-xl text-gray-300 text-center max-w-3xl mx-auto">
-          Browse our carefully curated collection of premium vehicles
+          Browse our selection of quality vehicles from Nissan, Dodge, GMC, Toyota, and more
         </p>
       </div>
     </section>
@@ -33,20 +33,20 @@ import { cars, type Car } from '../data/cars';
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {cars.map((car) => (
             <a href={`/cars/${car.id}`} class="group">
-              <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
-                <div class="relative overflow-hidden">
+              <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                <div class="relative overflow-hidden h-52">
                   <img 
                     src={car.images[0]} 
                     alt={`${car.year} ${car.make} ${car.model}`}
-                    class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div class="absolute top-4 left-4">
-                    <span class={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      car.condition === 'New' ? 'bg-green-500 text-white' :
-                      car.condition === 'Certified' ? 'bg-blue-500 text-white' :
+                  <div class="absolute top-3 right-3">
+                    <span class={`px-3 py-1 rounded-full text-xs font-semibold ${
+                      car.condition === 'New' ? 'bg-green-600 text-white' :
+                      car.condition === 'Certified' ? 'bg-blue-600 text-white' :
                       'bg-gray-700 text-white'
                     }`}>
                       {car.condition}
@@ -54,34 +54,23 @@ import { cars, type Car } from '../data/cars';
                   </div>
                 </div>
 
-                <div class="p-6">
-                  <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                <div class="p-5">
+                  <h3 class="text-lg font-bold text-gray-900 mb-2">
                     {car.year} {car.make} {car.model}
                   </h3>
 
-                  <div class="flex flex-wrap gap-4 mb-4 text-sm text-gray-600">
-                    <span class="flex items-center">
-                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {car.mileage.toLocaleString()} mi
-                    </span>
-                    <span class="flex items-center">
-                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                      {car.fuelType}
-                    </span>
+                  <div class="flex items-center text-sm text-gray-600 mb-3 space-x-3">
+                    <span>{car.mileage.toLocaleString()} mi</span>
+                    <span>•</span>
+                    <span>{car.transmission}</span>
                   </div>
 
-                  <div class="flex justify-between items-center pt-4 border-t border-gray-200">
-                    <div>
-                      <p class="text-3xl font-bold text-blue-600">
-                        ${car.price.toLocaleString()}
-                      </p>
-                    </div>
-                    <span class="text-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
-                      View →
+                  <div class="flex justify-between items-center pt-3 border-t border-gray-200">
+                    <span class="text-2xl font-bold text-red-600">
+                      ${car.price.toLocaleString()}
+                    </span>
+                    <span class="text-red-600 text-sm font-semibold group-hover:translate-x-1 transition-transform">
+                      Details →
                     </span>
                   </div>
                 </div>
