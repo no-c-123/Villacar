@@ -75,6 +75,15 @@ import { cars, type Car } from '../data/cars';
             Showing <span id="vehicleCount" class="font-bold text-gray-900">{cars.length}</span> vehicles
           </p>
           <div class="flex items-center space-x-4">
+            <a 
+              href="/compare" 
+              class="inline-flex items-center gap-2 px-6 py-2 border-2 border-custom-red text-custom-red rounded-lg hover:bg-custom-red hover:text-white transition-all duration-200 font-semibold"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              Compare Vehicles
+            </a>
             <label class="text-gray-700">Sort by:</label>
             <select id="sortSelect" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500">
               <option value="price-low">Price: Low to High</option>
@@ -112,6 +121,18 @@ import { cars, type Car } from '../data/cars';
                       {car.condition}
                     </span>
                   </div>
+
+                  {/* Wishlist Button */}
+                  <button 
+                    class="wishlist-btn absolute top-4 left-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200 z-10 group/wishlist"
+                    data-car-id={car.id}
+                    onclick="event.preventDefault(); toggleWishlist(this);"
+                    aria-label="Add to wishlist"
+                  >
+                    <svg class="wishlist-icon w-5 h-5 text-gray-600 group-hover/wishlist:text-red-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
 
                   {/* Quick View Overlay */}
                   <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -188,6 +209,48 @@ import { cars, type Car } from '../data/cars';
   <Footer />
 
   <script>
+    // Wishlist functionality
+    function getWishlist() {
+      return JSON.parse(localStorage.getItem('wishlist') || '[]');
+    }
+
+    function saveWishlist(wishlist: string[]) {
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }
+
+    function updateAllWishlistButtons() {
+      const wishlist = getWishlist();
+      document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        const carId = btn.getAttribute('data-car-id');
+        const icon = btn.querySelector('.wishlist-icon');
+        if (wishlist.includes(carId || '')) {
+          icon?.setAttribute('fill', 'currentColor');
+          icon?.classList.add('text-red-600');
+        } else {
+          icon?.setAttribute('fill', 'none');
+          icon?.classList.remove('text-red-600');
+        }
+      });
+    }
+
+    // @ts-ignore - Adding function to window for onclick handlers
+    window.toggleWishlist = function(btn) {
+      const carId = btn.getAttribute('data-car-id');
+      let wishlist = getWishlist();
+      
+      if (wishlist.includes(carId || '')) {
+        // @ts-ignore
+        wishlist = wishlist.filter(id => id !== carId);
+      } else {
+        wishlist.push(carId);
+      }
+      
+      saveWishlist(wishlist);
+      updateAllWishlistButtons();
+    };
+
+    updateAllWishlistButtons();
+
     // Get all car items and filters
     const carItems = document.querySelectorAll('.car-item');
     const makeFilter = document.getElementById('makeFilter') as HTMLSelectElement;

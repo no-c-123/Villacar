@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { cars } from '../data/cars';
+---
+
+<Layout title="My Wishlist - Villacar Autos LLC.">
+  <Navbar />
+  
+  <main class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h1 class="text-5xl font-bold text-gray-900 mb-4">My Wishlist</h1>
+        <p class="text-xl text-gray-600">Your saved vehicles are waiting for you</p>
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="hidden max-w-md mx-auto text-center py-16">
+        <div class="w-24 h-24 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-12 h-12 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">No saved vehicles yet</h2>
+        <p class="text-gray-600 mb-6">Start building your wishlist by browsing our inventory</p>
+        <a href="/inventory" class="inline-block bg-gradient-to-r from-custom-red to-red-700 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+          Browse Inventory
+        </a>
+      </div>
+
+      <!-- Wishlist Grid -->
+      <div id="wishlistGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Will be populated by JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script define:vars={{ cars }}>
+    function getWishlist() {
+      return JSON.parse(localStorage.getItem('wishlist') || '[]');
+    }
+
+    function saveWishlist(wishlist) {
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }
+
+    function removeFromWishlist(carId) {
+      let wishlist = getWishlist();
+      wishlist = wishlist.filter(id => id !== carId);
+      saveWishlist(wishlist);
+      renderWishlist();
+    }
+
+    function renderWishlist() {
+      const wishlist = getWishlist();
+      const wishlistGrid = document.getElementById('wishlistGrid');
+      const emptyState = document.getElementById('emptyState');
+
+      if (wishlist.length === 0) {
+        emptyState.classList.remove('hidden');
+        wishlistGrid.classList.add('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      wishlistGrid.classList.remove('hidden');
+
+      const wishlistCars = cars.filter(car => wishlist.includes(car.id));
+      
+      wishlistGrid.innerHTML = wishlistCars.map(car => `
+        <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+          <div class="relative overflow-hidden h-64">
+            <img 
+              src="${car.images[0]}" 
+              alt="${car.year} ${car.make} ${car.model}"
+              class="w-full h-full object-cover"
+            />
+            <button 
+              class="remove-wishlist-btn absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 hover:text-white transition-all duration-200 group"
+              data-car-id="${car.id}"
+              aria-label="Remove from wishlist"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-3 py-1 rounded-full text-xs font-bold ${
+                car.condition === 'New' ? 'bg-green-100 text-green-700' :
+                car.condition === 'Certified' ? 'bg-blue-100 text-blue-700' :
+                'bg-gray-100 text-gray-700'
+              }">
+                ${car.condition}
+              </span>
+              <span class="text-gray-500 text-sm">${car.bodyType}</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">
+              ${car.year} ${car.make} ${car.model}
+            </h3>
+            <p class="text-gray-600 mb-4">${car.mileage.toLocaleString()} miles • ${car.transmission}</p>
+            <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+              <div class="text-3xl font-bold text-red-600">
+                $${car.price.toLocaleString()}
+              </div>
+              <a 
+                href="/cars/${car.id}" 
+                class="bg-gradient-to-r from-custom-red to-red-700 text-white px-6 py-2 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+              >
+                View Details
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Add event listeners to remove buttons
+      document.querySelectorAll('.remove-wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const carId = btn.getAttribute('data-car-id');
+          removeFromWishlist(carId);
+        });
+      });
+    }
+
+    renderWishlist();
+  </script>
+</Layout>
