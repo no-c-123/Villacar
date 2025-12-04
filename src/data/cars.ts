@@ -40,7 +40,12 @@ export const cars: Car[] = [
       'LED Headlights',
       'Keyless Entry & Start'
     ],
-    images: ['/images/cars/toyota-camry-1.jpg', '/images/cars/toyota-camry-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1552519507-cf8a7d3f3a95?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1619682817481-e994891cd1f5?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1617531653520-bd466c5d6e85?w=800&h=600&fit=crop'
+    ],
     isFeatured: true,
     vin: 'TOYOTA12345CAMRY'
   },
@@ -66,7 +71,12 @@ export const cars: Car[] = [
       'Motion Activated Liftgate',
       '9-Inch Touchscreen'
     ],
-    images: ['/images/cars/nissan-rogue-1.jpg', '/images/cars/nissan-rogue-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=600&fit=crop'
+    ],
     isFeatured: true,
     vin: 'NISSAN789ROGUE'
   },
@@ -92,7 +102,12 @@ export const cars: Car[] = [
       'Power Driver Seat',
       'Rear Vision Camera'
     ],
-    images: ['/images/cars/gmc-sierra-1.jpg', '/images/cars/gmc-sierra-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1623793047686-d18a3f6c3037?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1566023888293-c1d2f0dcb1e9?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1626668011725-818b2ef85f6b?w=800&h=600&fit=crop'
+    ],
     isFeatured: true,
     vin: 'GMC456SIERRA1500'
   },
@@ -118,7 +133,12 @@ export const cars: Car[] = [
       'Uconnect 8.4" Display',
       'Performance Hood'
     ],
-    images: ['/images/cars/dodge-charger-1.jpg', '/images/cars/dodge-charger-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop'
+    ],
     isFeatured: true,
     vin: 'DODGE789CHARGER'
   },
@@ -144,7 +164,12 @@ export const cars: Car[] = [
       'Blind Spot Monitor',
       '8-Inch Touchscreen'
     ],
-    images: ['/images/cars/toyota-rav4-1.jpg', '/images/cars/toyota-rav4-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&h=600&fit=crop'
+    ],
     isFeatured: false,
     vin: 'TOYOTA555RAV4XLE'
   },
@@ -170,7 +195,12 @@ export const cars: Car[] = [
       'Automatic Emergency Braking',
       '19" Aluminum Wheels'
     ],
-    images: ['/images/cars/nissan-altima-1.jpg', '/images/cars/nissan-altima-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1617531653520-bd466c5d6e85?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1552519507-cf8a7d3f3a95?w=800&h=600&fit=crop'
+    ],
     isFeatured: false,
     vin: 'NISSAN333ALTIMA'
   },
@@ -196,7 +226,12 @@ export const cars: Car[] = [
       'Hands-Free Liftgate',
       'Heated & Ventilated Seats'
     ],
-    images: ['/images/cars/gmc-acadia-1.jpg', '/images/cars/gmc-acadia-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=600&fit=crop'
+    ],
     isFeatured: false,
     vin: 'GMC888ACADIADEN'
   },
@@ -222,7 +257,12 @@ export const cars: Car[] = [
       'Harman Kardon Audio',
       'SRT Performance Pages'
     ],
-    images: ['/images/cars/dodge-durango-1.jpg', '/images/cars/dodge-durango-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1566023888293-c1d2f0dcb1e9?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&h=600&fit=crop'
+    ],
     isFeatured: false,
     vin: 'DODGE999DURANGO'
   },
@@ -248,7 +288,12 @@ export const cars: Car[] = [
       'Off-Road Tuned Suspension',
       'LED Fog Lights'
     ],
-    images: ['/images/cars/toyota-tacoma-1.jpg', '/images/cars/toyota-tacoma-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1566023992774-f5f9362bbb15?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1626668011725-818b2ef85f6b?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1623793047686-d18a3f6c3037?w=800&h=600&fit=crop'
+    ],
     isFeatured: false,
     vin: 'TOYOTA777TACOMA'
   },
@@ -274,7 +319,12 @@ export const cars: Car[] = [
       'Power Liftgate',
       'Remote Start'
     ],
-    images: ['/images/cars/nissan-pathfinder-1.jpg', '/images/cars/nissan-pathfinder-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&h=600&fit=crop'
+    ],
     isFeatured: false,
     vin: 'NISSAN222PATHF'
   },
@@ -300,7 +350,12 @@ export const cars: Car[] = [
       'Wireless Charging',
       'GMC Pro Safety Plus'
     ],
-    images: ['/images/cars/gmc-terrain-1.jpg', '/images/cars/gmc-terrain-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?w=800&h=600&fit=crop'
+    ],
     isFeatured: false,
     vin: 'GMC111TERRAIN'
   },
@@ -326,7 +381,12 @@ export const cars: Car[] = [
       'Rear Parking Sensors',
       'Roof Rack'
     ],
-    images: ['/images/cars/dodge-caravan-1.jpg', '/images/cars/dodge-caravan-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1600705722796-46702d3ab01c?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1570733577064-6b6c3e8ab0a6?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&h=600&fit=crop'
+    ],
     isFeatured: false,
     vin: 'DODGE444CARAVAN'
   }

@@ -1,0 +1,278 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { cars, getCarById } from '../../data/cars';
+
+export function getStaticPaths() {
+  return cars.map((car) => ({
+    params: { id: car.id },
+  }));
+}
+
+const { id } = Astro.params;
+const car = getCarById(id);
+
+if (!car) {
+  return Astro.redirect('/inventory');
+}
+---
+
+<Layout title={`${car.year} ${car.make} ${car.model} - Villacar Autos LLC.`}>
+  <Navbar />
+  
+  <main class="min-h-screen bg-gray-50">
+    <!-- Breadcrumb -->
+    <section class="bg-white border-b border-gray-200 py-4">
+      <div class="container mx-auto px-4">
+        <nav class="flex items-center space-x-2 text-sm text-gray-600">
+          <a href="/" class="hover:text-red-600 transition-colors">Home</a>
+          <span>›</span>
+          <a href="/inventory" class="hover:text-red-600 transition-colors">Inventory</a>
+          <span>›</span>
+          <span class="text-gray-900 font-semibold">{car.year} {car.make} {car.model}</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Left Column - Images & Details -->
+          <div class="lg:col-span-2">
+            <!-- Main Image Gallery -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
+              <div class="relative">
+                <img 
+                  id="mainImage"
+                  src={car.images[0]} 
+                  alt={`${car.year} ${car.make} ${car.model}`}
+                  class="w-full h-96 object-cover"
+                />
+                <div class="absolute top-4 left-4">
+                  <span class={`px-5 py-2 rounded-full text-sm font-bold shadow-lg ${
+                    car.condition === 'New' ? 'bg-green-600 text-white' :
+                    car.condition === 'Certified' ? 'bg-blue-600 text-white' :
+                    'bg-gray-700 text-white'
+                  }`}>
+                    {car.condition}
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Thumbnail Gallery -->
+              <div class="p-6 grid grid-cols-4 gap-4">
+                {car.images.map((image, index) => (
+                  <button
+                    class="thumbnail-btn relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-red-600 transition-all duration-300"
+                    data-image={image}
+                  >
+                    <img 
+                      src={image} 
+                      alt={`${car.year} ${car.make} ${car.model} - View ${index + 1}`}
+                      class="w-full h-24 object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <!-- Vehicle Overview -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+              <h2 class="text-3xl font-bold text-gray-900 mb-6">Vehicle Overview</h2>
+              <p class="text-gray-700 text-lg leading-relaxed mb-8">
+                {car.description}
+              </p>
+
+              <!-- Specs Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center p-4 bg-gray-50 rounded-xl">
+                  <div class="text-red-600 text-2xl font-bold mb-1">{car.year}</div>
+                  <div class="text-gray-600 text-sm">Year</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-xl">
+                  <div class="text-red-600 text-2xl font-bold mb-1">{car.mileage.toLocaleString()}</div>
+                  <div class="text-gray-600 text-sm">Miles</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-xl">
+                  <div class="text-red-600 text-2xl font-bold mb-1">{car.transmission}</div>
+                  <div class="text-gray-600 text-sm">Transmission</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-xl">
+                  <div class="text-red-600 text-2xl font-bold mb-1">{car.fuelType}</div>
+                  <div class="text-gray-600 text-sm">Fuel Type</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Features & Options -->
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+              <h2 class="text-3xl font-bold text-gray-900 mb-6">Features & Options</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {car.features.map((feature) => (
+                  <div class="flex items-start">
+                    <svg class="w-6 h-6 text-red-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="text-gray-700">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column - Purchase Info -->
+          <div class="lg:col-span-1">
+            <!-- Price Card -->
+            <div class="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl shadow-2xl p-8 text-white sticky top-8 mb-8">
+              <div class="text-center mb-6">
+                <h1 class="text-3xl font-bold mb-2">
+                  {car.year} {car.make}
+                </h1>
+                <p class="text-xl text-red-100">{car.model}</p>
+              </div>
+
+              <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6">
+                <div class="text-sm text-red-100 mb-2">Starting at</div>
+                <div class="text-5xl font-bold mb-4">${car.price.toLocaleString()}</div>
+                <div class="text-sm text-red-100">+ taxes & fees</div>
+              </div>
+
+              <!-- Quick Specs -->
+              <div class="space-y-3 mb-8 pb-8 border-b border-white/20">
+                <div class="flex justify-between items-center">
+                  <span class="text-red-100">Body Type</span>
+                  <span class="font-semibold">{car.bodyType}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-red-100">Color</span>
+                  <span class="font-semibold">{car.color}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-red-100">VIN</span>
+                  <span class="font-mono text-xs">{car.vin}</span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="space-y-3">
+                <a 
+                  href="/contact" 
+                  class="block w-full py-4 bg-white text-red-600 text-center rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 shadow-lg"
+                >
+                  Schedule Test Drive
+                </a>
+                <a 
+                  href="/contact" 
+                  class="block w-full py-4 bg-white/10 backdrop-blur-sm text-white text-center rounded-xl font-bold hover:bg-white/20 transition-all duration-300 border border-white/30"
+                >
+                  Get Pre-Approved
+                </a>
+                <a 
+                  href="tel:555-123-4567" 
+                  class="block w-full py-4 bg-white/10 backdrop-blur-sm text-white text-center rounded-xl font-bold hover:bg-white/20 transition-all duration-300 border border-white/30"
+                >
+                  📞 (555) 123-4567
+                </a>
+              </div>
+            </div>
+
+            <!-- Additional Info Card -->
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+              <h3 class="text-xl font-bold text-gray-900 mb-4">Why Buy From Us?</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-red-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>24+ years in business</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-red-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>No-pressure sales process</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-red-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Competitive financing options</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-red-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Thoroughly inspected vehicles</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Similar Vehicles -->
+        <div class="mt-16">
+          <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">Similar Vehicles</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {cars.filter(c => c.id !== car.id && c.bodyType === car.bodyType).slice(0, 3).map((similarCar) => (
+              <a href={`/cars/${similarCar.id}`} class="group">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                  <div class="relative overflow-hidden h-56">
+                    <img 
+                      src={similarCar.images[0]} 
+                      alt={`${similarCar.year} ${similarCar.make} ${similarCar.model}`}
+                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors">
+                      {similarCar.year} {similarCar.make} {similarCar.model}
+                    </h3>
+                    <div class="flex justify-between items-center">
+                      <span class="text-2xl font-bold text-red-600">
+                        ${similarCar.price.toLocaleString()}
+                      </span>
+                      <span class="text-gray-600 text-sm">
+                        {similarCar.mileage.toLocaleString()} mi
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script>
+    // Image gallery functionality
+    const thumbnails = document.querySelectorAll('.thumbnail-btn');
+    const mainImage = document.getElementById('mainImage');
+
+    thumbnails.forEach((thumbnail) => {
+      thumbnail.addEventListener('click', () => {
+        const imageUrl = thumbnail.getAttribute('data-image');
+        if (mainImage && imageUrl) {
+          mainImage.src = imageUrl;
+        }
+        
+        // Update active state
+        thumbnails.forEach(t => t.classList.remove('border-red-600'));
+        thumbnails.forEach(t => t.classList.add('border-gray-200'));
+        thumbnail.classList.remove('border-gray-200');
+        thumbnail.classList.add('border-red-600');
+      });
+    });
+
+    // Set first thumbnail as active
+    if (thumbnails.length > 0) {
+      thumbnails[0].classList.remove('border-gray-200');
+      thumbnails[0].classList.add('border-red-600');
+    }
+  </script>
+</Layout>
